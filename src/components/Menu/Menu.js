@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import config from "../../config.json"
+import Search from "./components/Search";
 
 const StyledMenu = styled.header`
   display: flex;
   flex-direction: row;
   height: 56px;
-  justify-content: left;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.backgroundLevel1 || "#FFFFFF"};
   border: 1px solid ${({ theme }) => theme.borderBase || "#e5e5e5"};
   align-items: center;
@@ -13,6 +13,10 @@ const StyledMenu = styled.header`
   gap: 0.5rem;
   position: fixed;
   width: 100%;
+  .logo-completa{
+    display: flex;
+    gap: 0.5rem;
+  }
   .logo {
     width: 100%;
     width: 40px;
@@ -26,13 +30,14 @@ const StyledMenu = styled.header`
   }
 `;
 
-export default function Menu() {
+export default function Menu({valorDoFiltro, setValorDoFiltro}) {
   return (
     <StyledMenu>
-      <div>
+      <div className="logo-completa">
         <Logo />
+        <h2 className="logo-texto">trojan<strong>Tube</strong></h2>
       </div>
-      <h2 className="logo-texto">trojan<strong>Tube</strong></h2>
+      <Search valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
     </StyledMenu>
   );
 }

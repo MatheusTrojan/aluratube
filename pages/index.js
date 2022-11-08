@@ -1,12 +1,15 @@
-import config from "../config.json"
-import styled from "styled-components"
+import React from "react";
+import config from "../config.json";
+import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
-import Menu from "../src/components/Menu";
-import { StyledTimeline } from "../src/components/Timeline";
-import { StyledFavoritos } from "../src/components/Favoritos"
+import Menu from "../src/components/Menu/Menu.js";
+import { StyledTimeline } from "../src/components/Timeline.js";
+import { StyledFavoritos } from "../src/components/Favoritos";
 
 function HomePage() {
     const estilosDaHomePage = {}
+
+    const [valorDoFiltro, setValorDoFiltro] = React.useState("")
 
     //console.log(config.playlists)
 
@@ -14,9 +17,10 @@ function HomePage() {
         <>
             <CSSReset />
             <div style={estilosDaHomePage}>
-                <Menu />
+                {/* Prop Drilling */}
+                <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
                 <Header />
-                <Timeline playlists={config.playlists} />
+                <Timeline searchValue={valorDoFiltro} playlists={config.playlists} />
                 <Favoritos favoritos={config.favoritos} />
             </div>
         </>
@@ -26,17 +30,11 @@ function HomePage() {
 export default HomePage
 
 const StyledHeader = styled.div`
-    .header-banner {
-        width: 100%;
-        height: 230px;
-        object-fit: cover;
-        object-position: 0 90%;
-        margin-top: 50px;
-    }
     .user-info > img {
         width: 80px;
         height: 80px;
-        border-radius: 50%
+        border-radius: 50%;
+        border: 1px solid black;
     }
     .user-info {
         align-items: center;
@@ -47,10 +45,19 @@ const StyledHeader = styled.div`
     }
 `;
 
+const StyledBanner = styled.div`
+    /* background-image: url(${config.bg}); */
+    background-image: url( ${ ({ bg }) => bg});
+    background-position: 0 -650px;
+    background-size: cover;
+    height: 230px;
+    width: 100%;
+`
+
 function Header() {
     return (
         <StyledHeader>
-            <img className="header-banner" src={config.banner} />
+            <StyledBanner bg = {config.bg}/>
             <section className="user-info">
                 <img src={`https://github.com/${config.github}.png`} />
                 <div>
@@ -62,7 +69,7 @@ function Header() {
     )
 }
 
-function Timeline(props) {
+function Timeline({searchValue, ...props}) {
     // console.log("Dentro do componente ", props.playlists)
     const playlistNames = Object.keys(props.playlists)
 
@@ -73,12 +80,18 @@ function Timeline(props) {
                 // console.log(playlistName)
                 // console.log(videos)
                 return (
-                    <section>
+                    <section key={playlistName}>
                         <h2>{playlistName}</h2>
                         <div>
-                            {videos.map((video) => {
+                            {videos.filter((video) => {
+                                const titleNormalized = video.title.toLowerCase();
+                                const searchValueNormalized = searchValue.toLowerCase();
+
+                                return titleNormalized.includes(searchValueNormalized)
+
+                            }).map((video) => {
                                 return (
-                                    <a href={video.url}>
+                                    <a key={video.url} href={video.url}>
                                         <img src={video.thumb} />
                                         <span>
                                             {video.title}
@@ -105,7 +118,7 @@ function Favoritos(props) {
                 const favoritos = props.favoritos[nomeFavorito]
                 // console.log(favoritos)
                 return (
-                    <section className="elemento-favorito">
+                    <section className="elemento-favorito" key={nomeFavorito}>
                         <img src={`https://github.com/${favoritos.github}.png`} />
                         <h3>{favoritos.name}</h3>                          
                     </section>
