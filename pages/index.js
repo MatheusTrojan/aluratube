@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { StyledFavoritos } from "../src/components/Favoritos"
 
 function HomePage() {
     const estilosDaHomePage = {}
@@ -16,6 +17,7 @@ function HomePage() {
                 <Menu />
                 <Header />
                 <Timeline playlists={config.playlists} />
+                <Favoritos favoritos={config.favoritos} />
             </div>
         </>
     );
@@ -24,7 +26,14 @@ function HomePage() {
 export default HomePage
 
 const StyledHeader = styled.div`
-    img {
+    .header-banner {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        object-position: 0 90%;
+        margin-top: 50px;
+    }
+    .user-info > img {
         width: 80px;
         height: 80px;
         border-radius: 50%
@@ -34,7 +43,6 @@ const StyledHeader = styled.div`
         display: flex;
         gap: 1rem;
         padding: 1rem 2rem;
-        margin-top: 50px;
         width: 100%;
     }
 `;
@@ -42,7 +50,7 @@ const StyledHeader = styled.div`
 function Header() {
     return (
         <StyledHeader>
-            {/* <img src="#banner" /> */}
+            <img className="header-banner" src={config.banner} />
             <section className="user-info">
                 <img src={`https://github.com/${config.github}.png`} />
                 <div>
@@ -83,5 +91,27 @@ function Timeline(props) {
                 )
             })}
         </StyledTimeline>
+    )
+}
+
+function Favoritos(props) {
+    const nomesFavoritos = Object.keys(props.favoritos)
+
+    return (
+        <StyledFavoritos>
+            <h2>AluraTube Favoritos</h2>
+            <div className="lista-favoritos">
+            {nomesFavoritos.map((nomeFavorito) => {
+                const favoritos = props.favoritos[nomeFavorito]
+                // console.log(favoritos)
+                return (
+                    <section className="elemento-favorito">
+                        <img src={`https://github.com/${favoritos.github}.png`} />
+                        <h3>{favoritos.name}</h3>                          
+                    </section>
+                )
+            })}
+            </div>
+        </StyledFavoritos>
     )
 }
