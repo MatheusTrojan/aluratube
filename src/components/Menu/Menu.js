@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DarkModeSwitch from "./components/DarkModeSwitch";
 import Search from "./components/Search";
 
 const StyledMenu = styled.header`
@@ -15,7 +16,8 @@ const StyledMenu = styled.header`
   width: 100%;
   .logo-completa{
     display: flex;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.3rem;
   }
   .logo {
     width: 100%;
@@ -25,8 +27,10 @@ const StyledMenu = styled.header`
     }
   }
   .logo-texto {
+    color: ${({ theme }) => theme.textColorBase || "#222222"};
     font-size: 1.5rem;
     font-weight: 400;
+    margin-top: 0.2rem;
   }
 `;
 
@@ -38,6 +42,7 @@ export default function Menu({valorDoFiltro, setValorDoFiltro}) {
         <h2 className="logo-texto">trojan<strong>Tube</strong></h2>
       </div>
       <Search valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
+      <DarkModeSwitch />
     </StyledMenu>
   );
 }
