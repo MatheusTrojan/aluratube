@@ -34,7 +34,7 @@ const supabase = createClient(PROJECT_URL, PUBLIC_KEY)
 
 export default function RegisterVideo() {
     const formCadastro = useForm({ 
-        initialValues: { titulo: "", url: "https://www.youtube.com/watch?v=QsqatJxAUtk" }
+        initialValues: { titulo: "", url: "" }
     });
 
     const [formVisivel, setFormVisivel] = React.useState(false);

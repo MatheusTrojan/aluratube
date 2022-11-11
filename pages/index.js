@@ -4,11 +4,39 @@ import styled from "styled-components";
 import Menu from "../src/components/Menu/Menu.js";
 import { StyledTimeline } from "../src/components/Timeline.js";
 import { StyledFavoritos } from "../src/components/Favoritos";
+import { videoService } from "../src/services/videoService";
 
 function HomePage() {
-    const [valorDoFiltro, setValorDoFiltro] = React.useState("")
+    const service = videoService();
+    const [valorDoFiltro, setValorDoFiltro] = React.useState("");
+    const [playlists, setPlaylists] = React.useState({}); //config.playlists
 
+    React.useEffect(() => {
+        console.log("useEffect")
+
+        service
+            .getAllVideos()        
+            .then((dados) => {
+                console.log(dados.data)
+
+                const novasPlaylists = {};
+
+                dados.data.forEach((video) => {  
+                    if (!novasPlaylists[video.playlist]) novasPlaylists[video.playlist] = [];
+                    novasPlaylists[video.playlist] = [
+                        video,
+                        ...novasPlaylists[video.playlist],
+                    ];
+                })
+
+                setPlaylists(novasPlaylists)
+            });
+        
+    }, [])
+    // usamos o useEffect para evitar um loop infinito de ficar recarregando a pagina para qualquer alteração... e como queremos que seja ativado apenas 1x, precisa colocar o array vazio como segundo parâmetro
+    // console.log(playlists)
     //console.log(config.playlists)
+
 
     return (
         <>
