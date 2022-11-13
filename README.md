@@ -30,11 +30,11 @@ O usuário deverá conseguir:
 
 ### Screenshot
 
-- Em breve
+- Em breve será adicionado
 
 ### Preview
 
-- Em breve
+- Em breve será adicionado
 
 ### Deploy
 
