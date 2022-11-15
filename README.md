@@ -11,6 +11,7 @@
   - [Deploy](#deploy)
 - [Meu processo](#meu-processo)
   - [Projetado com](#projetado-com)
+  - [O que falta fazer](#o-que-falta-fazer)
   - [O que eu aprendi](#o-que-eu-aprendi)
 - [Autores](#autores)
 
@@ -30,7 +31,7 @@ O usuário deverá conseguir:
 
 ### Screenshot
 
-- Em breve será adicionado
+![](src/images/print-demonstracao.png#vitrinedev)
 
 ### Preview
 
@@ -48,6 +49,10 @@ Acesse através deste [link](https://trojantube-tan.vercel.app/)
 - Styled Components
 - React Hooks
 - Base de dados do Supabase
+
+### O que falta fazer
+
+- Site em construção, ainda é necessário fazer a lista de videos adicionados aparecer na página inicial
 
 ### O que eu aprendi
 
