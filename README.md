@@ -1,6 +1,6 @@
 # TrojanTube 
 
-<p>Um aplicativo criado com React para acessar vídeos e adicionar os seu favoritos</p>
+<p>Um aplicativo criado com React e base de dados Supabase para acessar vídeos e adicionar os seu favoritos</p>
 
 ## Conteúdo deste Readme:
 
